@@ -1,12 +1,12 @@
 package org.example.hdfsclient;
 
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.FileSystem;
-import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.fs.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.sound.midi.Soundbank;
 import java.io.IOException;
 import java.net.URI;
 
@@ -52,6 +52,43 @@ public class HDFSClient {
         }
     }
 
+    @Test
+    public void ls() throws IOException {
+        FileStatus[] fileStatuses = fs.listStatus(new Path("/"));
+
+        for (FileStatus fileStatus : fileStatuses) {
+            if (fileStatus.isFile()) {
+                System.out.println("file information: ");
+                System.out.println(fileStatus.getPath());
+                System.out.println(fileStatus.getLen());
+            } else {
+                System.out.println("direction information: ");
+                System.out.println(fileStatus.getPath());
+            }
+        }
+    }
+
+    @Test
+    public void listFiles() throws IOException {
+        RemoteIterator<LocatedFileStatus> files = fs.listFiles(new Path("/"), true);
+
+        while (files.hasNext()) {
+            LocatedFileStatus file = files.next();
+            System.out.println("----------------------------");
+            System.out.println(file.getPath());
+            System.out.println("block information: ");
+            BlockLocation[] blockLocations = file.getBlockLocations();
+
+            for (BlockLocation blockLocation : blockLocations) {
+                String[] hosts = blockLocation.getHosts();
+                System.out.print("block in ");
+                for (String host : hosts) {
+                    System.out.print(host + " ");
+                }
+                System.out.println();
+            }
+        }
+    }
 
     @After
     public void after() throws IOException {
