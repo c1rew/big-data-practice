@@ -1,9 +1,7 @@
 package org.example.hdfsclient;
 
 import org.apache.curator.framework.recipes.locks.InterProcessReadWriteLock;
-import org.apache.hadoop.io.ArrayWritable;
-import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.*;
 import org.checkerframework.dataflow.qual.TerminatesExecution;
 import org.junit.Test;
 
@@ -31,5 +29,18 @@ public class HadoopDataType {
                 ((IntWritable) arrayWritable.get()[1]).get(),
                 ((IntWritable) arrayWritable.get()[2]).get()));
     }
-    
+
+    @Test
+    public void testMapWritable() {
+        System.out.println("test MapWritable");
+        MapWritable map = new MapWritable();
+        Text k1 = new Text("name");
+        Text v1 = new Text("tony");
+        Text k2 = new Text("password");
+        map.put(k1, v1);
+        map.put(k2, NullWritable.get());
+        System.out.println(map.get(k1).toString());
+        System.out.println(map.get(k2).toString());
+    }
+
 }
