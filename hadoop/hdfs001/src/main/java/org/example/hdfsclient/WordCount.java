@@ -72,6 +72,11 @@ public class WordCount {
         //job.setCombinerClass(IntSumReducer.class);
         job.setReducerClass(IntSumReducer.class);
 
+        // for hello.txt test file
+        // 增加该句，则mapper的输出会先使用reducer做一次combiner，先排重，再将结果输出给reducer
+        // Map output materialized bytes=156  ---> Map output materialized bytes=66
+        job.setCombinerClass(IntSumReducer.class);
+
         // 4. 设置Mapper和Reducer输出类型
         job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(IntWritable.class);
