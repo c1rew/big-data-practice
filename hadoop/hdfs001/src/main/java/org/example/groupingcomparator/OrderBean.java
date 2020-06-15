@@ -47,7 +47,13 @@ public class OrderBean implements WritableComparable<OrderBean> {
 
     @Override
     public int compareTo(OrderBean o) {
-        return 0;
+        int compare = this.orderId.compareTo(o.orderId);
+
+        if (compare == 0) {
+            return Double.compare(o.price, this.price);
+        } else {
+            return compare;
+        }
     }
 
     @Override
