@@ -1,8 +1,6 @@
 package org.example.hdfsclient;
 
-import org.apache.curator.framework.recipes.locks.InterProcessReadWriteLock;
 import org.apache.hadoop.io.*;
-import org.checkerframework.dataflow.qual.TerminatesExecution;
 import org.junit.Test;
 
 public class HadoopDataType {
