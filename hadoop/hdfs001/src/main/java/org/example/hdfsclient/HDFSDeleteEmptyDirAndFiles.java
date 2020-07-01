@@ -17,6 +17,7 @@ public class HDFSDeleteEmptyDirAndFiles {
         delEmptyDirAndFiles(new Path("/a"));
 
         printTestData(new Path("/a"));
+
         //delTestData();
     }
 
@@ -39,6 +40,7 @@ public class HDFSDeleteEmptyDirAndFiles {
     private static void delEmptyDirAndFiles(Path path) {
         try {
             FileStatus[] listStatus = fs.listStatus(path);
+            // 当前目录为空，直接删除返回
             if (listStatus.length == 0) {
                 fs.delete(path,true);
                 return;
@@ -50,16 +52,20 @@ public class HDFSDeleteEmptyDirAndFiles {
                 Path parentPath = currentPath.getParent();
 
                 if (fileStatus.isDirectory()) {
+                    // 删除空目录
                     if (fs.listStatus(currentPath).length == 0) {
                         fs.delete(currentPath,true);
                     } else {
+                        // 递归遍历目录
                         delEmptyDirAndFiles(currentPath);
                     }
                 } else if (fileStatus.isFile()){
+                    // 删除空文件
                     if (fileStatus.getLen() == 0) {
                         fs.delete(currentPath, true);
                     }
                 }
+                // 如果目录下的文件或者文件夹被删除，则父目录也变成了空文件，也需要删除
                 if (fs.listStatus(parentPath).length == 0) {
                     fs.delete(parentPath, true);
                 }
@@ -71,6 +77,9 @@ public class HDFSDeleteEmptyDirAndFiles {
         }
     }
 
+    /**
+     * 删除测试数据
+     */
     private static void delTestData() {
 
         try {
@@ -80,6 +89,9 @@ public class HDFSDeleteEmptyDirAndFiles {
         }
     }
 
+    /**
+     * 创建测试数据
+     */
     private static void createTestData() {
 
         String emptyFile = "D:\\emptyfile.txt";
@@ -101,6 +113,9 @@ public class HDFSDeleteEmptyDirAndFiles {
         }
     }
 
+    /**
+     * 初始化hdfs filessytem
+     */
     private static void initialFileSystem() {
         Configuration conf = new Configuration();
         try {
