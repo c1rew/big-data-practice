@@ -11,6 +11,7 @@
  * 要求：多个线程必须要共用同一把锁
  * <p>
  * 方式二：同步方法
+ *  如果操作共享数据的代码完整声明在一个方法中，则可以将该方法声明为同步的
  *
  * @author c1rew
  * @create 2020-07-07 22:44
@@ -24,7 +25,8 @@ class Window1 implements Runnable {
     public void run() {
         while (true) {
              //synchronized (new Object()) { //错误
-            synchronized (obj) {
+            //synchronized (obj) {
+            synchronized (this) {  // 唯一的Window1对象
                 if (ticket > 0) {
                     try {
                         Thread.sleep(10);

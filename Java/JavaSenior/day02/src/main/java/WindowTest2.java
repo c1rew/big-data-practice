@@ -9,19 +9,26 @@ class Window2 extends Thread {
 
     private static int ticket = 100;
 
+    //private Object obj = new Object(); // 错误，不同线程不能共享这个对象锁
+    private static Object obj = new Object();
+
+
     @Override
     public void run() {
         while (true) {
-            
-            if (ticket > 0) {
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            //synchronized (obj) { // 正确
+            //synchronized (this) {  // 错误，每个线程 this不同
+            synchronized (Window2.class) { //使用当前类，类也是一种对象
+                if (ticket > 0) {
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(getName() + ": sell ticket, ticket number: " + ticket--);
+                } else {
+                    break;
                 }
-                System.out.println(getName() + ": sell ticket, ticket number: " + ticket--);
-            } else {
-                break;
             }
         }
 
