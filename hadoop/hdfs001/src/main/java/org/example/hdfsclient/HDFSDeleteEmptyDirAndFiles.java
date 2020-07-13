@@ -19,6 +19,12 @@ public class HDFSDeleteEmptyDirAndFiles {
         printTestData(new Path("/a"));
 
         //delTestData();
+
+        try {
+            fs.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void printTestData(Path path) {
