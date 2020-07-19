@@ -13,8 +13,8 @@ public class StringTest {
      * 3. String内部定义了final char[] value用于存储字符串数据
      * 4. String代表不可变的字符序列。  简称：不可变性
      * 体现：1. 当字符串重新赋值，需要重新制定内存区域赋值，不能使用原有的value进行赋值
-     *      2. 当对现有字符串进行连接操作时，也需要重新指定内存区域赋值，不能使用原有的value进行赋值
-     *      3. 当调用String 的replace方法时，修改指定字符或字符串时，也需要重新指定内存区域赋值，不能使用原有的value进行赋值
+     * 2. 当对现有字符串进行连接操作时，也需要重新指定内存区域赋值，不能使用原有的value进行赋值
+     * 3. 当调用String 的replace方法时，修改指定字符或字符串时，也需要重新指定内存区域赋值，不能使用原有的value进行赋值
      * <p>
      * 5. 通过字面量的方式给一个字符串赋值，此时的字符串值生命在字符串常量池中；
      * 6. 字符串常量池中不会存储相同内容的字符串
@@ -45,12 +45,12 @@ public class StringTest {
      * String 实例化方式：
      * 1. 通过字面量定义
      * 2. 通过new+构造器
-     *
+     * <p>
      * 面试题：String s = new String("abc"); 方式创建对象，在内存中创建了几个对象
-     *    两个：一个是堆空间中new结构，另一个是char[]对应常量池中的数据 "abc"
+     * 两个：一个是堆空间中new结构，另一个是char[]对应常量池中的数据 "abc"
      */
     @Test
-    public  void test2() {
+    public void test2() {
         // s1 s2 声明在方法去中的字符串常量池中
         String s1 = "JavaEE";
         String s2 = "JavaEE";
@@ -73,5 +73,34 @@ public class StringTest {
 
         p1.name = "Jerry";
         System.out.println(p2.name); // Tom
+    }
+
+    /**
+     * 1. 常量与常量的拼接结果在常量池，且常量池不会存在相同内容的常量
+     * 2. 只要有其中一个是变量，结果就在堆中
+     * 3. 入股拼接的结果调用了intern方法，返回值就在常量池中
+     */
+    @Test
+    public void test3() {
+        String s1 = "JavaEE";
+        String s2 = "hadoop";
+
+        String s3 = "JavaEEhadoop";
+        String s4 = "JavaEE" + "hadoop";
+        String s5 = s1 + "hadoop";
+        String s6 = "JavaEE" + s2;
+        String s7 = s1 + s2;
+
+        System.out.println(s3 == s4); // true
+        System.out.println(s3 == s5); // false
+        System.out.println(s3 == s6); // false
+        System.out.println(s3 == s7); // false
+        System.out.println(s5 == s6); // false
+        System.out.println(s5 == s7); // false
+        System.out.println(s6 == s7); // false
+
+        // TODO intern需要进一步解释
+        String s8 = s6.intern();
+        System.out.println(s3 == s8); // true
     }
 }
