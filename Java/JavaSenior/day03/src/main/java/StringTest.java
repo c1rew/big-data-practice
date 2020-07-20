@@ -78,7 +78,7 @@ public class StringTest {
     /**
      * 1. 常量与常量的拼接结果在常量池，且常量池不会存在相同内容的常量
      * 2. 只要有其中一个是变量，结果就在堆中
-     * 3. 入股拼接的结果调用了intern方法，返回值就在常量池中
+     * 3. 如果拼接的结果调用了intern方法，返回值就在常量池中
      */
     @Test
     public void test3() {
@@ -99,8 +99,37 @@ public class StringTest {
         System.out.println(s5 == s7); // false
         System.out.println(s6 == s7); // false
 
-        // TODO intern需要进一步解释
+        // intern JDK 1.6 及 JDK 1.7的有差异， 1.7及其之后常量池在堆区
         String s8 = s6.intern();
         System.out.println(s3 == s8); // true
+        // JavaEEhadoop 已经在s3定义时，存在于常量池中，s6指向的仍然是堆内存
+        // 如果常量池中没有该常量，则当下创建后返回的地址就是常量池对应的地址
+        System.out.println(s6 == s8); // false
+        System.out.println(System.identityHashCode(s3));
+        System.out.println(System.identityHashCode(s6));
+        System.out.println(System.identityHashCode(s8));
+
+        System.out.println("---------------------------");
+        // str位于常量池
+        String str = "abcdef";
+        System.out.println("str:"+ System.identityHashCode(str));
+        // str1 及str2均指向 堆，但是 常量池中有 abc  和  def 两个常量
+        String str1 = new String("abc") + "def";
+        String str2 = new String("abc") + new String("def");
+        System.out.println("str1:"+ System.identityHashCode(str1));
+        System.out.println("str2:"+ System.identityHashCode(str2));
+
+        // str3 判断常量池中是否有abcdef，发现已经有了，则直接返回
+        String str3 = str2.intern();
+        System.out.println("str1:"+ System.identityHashCode(str1));
+        System.out.println("str2:"+ System.identityHashCode(str2));
+        System.out.println("str3:"+ System.identityHashCode(str3));
+
+        System.out.println(str2 == str1);
+        System.out.println(str1 == str3);
+        System.out.println(str2 == str3);
+        System.out.println(str == str3);
     }
+
+
 }
