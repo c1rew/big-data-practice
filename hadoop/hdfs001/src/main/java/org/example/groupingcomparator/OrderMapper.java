@@ -17,6 +17,7 @@ public class OrderMapper extends Mapper<LongWritable, Text, OrderBean, NullWrita
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
+        // 拆分文本数据，获得每个字段的值；封装orderBean；写入上下文；
         String[] fields = value.toString().split("\t");
         orderBean.setOrderId(fields[0]);
         orderBean.setProductId(fields[1]);

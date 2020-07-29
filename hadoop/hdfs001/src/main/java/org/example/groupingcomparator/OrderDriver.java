@@ -14,7 +14,7 @@ import java.io.IOException;
  * @author c1rew
  * @create 2020-06-16 22:10
  */
-public class OrderDriver {
+public class  OrderDriver {
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
         Job job = Job.getInstance(new Configuration());
 
