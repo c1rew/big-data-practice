@@ -17,6 +17,7 @@ public class HBaseAPI_1 {
         conf.addResource("conf/hbase-site.xml");
         conf.addResource("conf/core-site.xml");
         conf.addResource("conf/hdfs-site.xml");
+        // 上面的addReSource没生效，导致hbase.zookeeper.quorum配置获取出来为localhost，直接用set可行；
         conf.set("hbase.zookeeper.quorum", "bigdata02:2181,bigdata03:2181,bigdata04:2181");
         System.out.println(conf.get("hbase.zookeeper.quorum"));
         Connection conn = ConnectionFactory.createConnection(conf);
