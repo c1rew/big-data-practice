@@ -14,6 +14,11 @@ import java.util.List;
 /**
  * @author c1rew
  * @date 2020-09-18 13:12
+ *
+ * spark-submit --master spark://bigdata02:7077 --class JavaWordCount ./learn_spark-1.0.jar hdfs://bigdata02:9000/word.txt
+ * 注意：
+ * 1. master指定的spark节点，需要是ALIVE的，不能是standby的
+ * 2. 指定的hdfs节点，也需要是active节点，不能是standby节点
  */
 
 public class JavaWordCount {

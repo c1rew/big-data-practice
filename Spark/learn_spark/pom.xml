@@ -30,17 +30,6 @@
             <artifactId>spark-core_2.11</artifactId>
             <version>${spark.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.spark</groupId>
-            <artifactId>spark-sql_2.11</artifactId>
-            <version>${spark.version}</version>
-        </dependency>
-        <!-- hivecontext要用这个依赖-->
-        <dependency>
-            <groupId>org.apache.spark</groupId>
-            <artifactId>spark-hive_2.11</artifactId>
-            <version>${spark.version}</version>
-        </dependency>
         <!-- hadoop依赖-->
         <dependency>
             <groupId>org.apache.hadoop</groupId>
@@ -67,6 +56,7 @@
             </plugins>
         </pluginManagement>
         <plugins>
+            <!-- 编译scala程序对应maven插件的配置参数 -->
             <plugin>
                 <groupId>net.alchim31.maven</groupId>
                 <artifactId>scala-maven-plugin</artifactId>
@@ -89,6 +79,7 @@
                 </executions>
             </plugin>
 
+            <!-- 编译java程序对应maven插件的配置参数 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
