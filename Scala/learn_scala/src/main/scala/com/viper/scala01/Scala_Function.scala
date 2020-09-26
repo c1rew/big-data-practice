@@ -188,7 +188,17 @@ object Scala_Function {
         }))
         println(f9((x, y) => x + y))
         println(f9((x, y) => x + y))
-        println(f9(_+_))
+        println(f9(_ + _))
+
+
+        // function类型最大为22，不同编译器结果不同
+        // com.viper.scala01.Scala_Function$$$Lambda$18/1908923184@19bb089b
+        val fun0 = () => {}
+        println(fun0) // <function0>
+        val fun1 = (i:Int) => {}
+        println(fun1) // <function1>
+        val fun2 = (i:Int, j:Int) => {}
+        println(fun2) // <function2>
 
     }
 }
