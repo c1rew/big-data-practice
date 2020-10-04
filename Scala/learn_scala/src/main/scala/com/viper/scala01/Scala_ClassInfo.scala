@@ -1,3 +1,5 @@
+package com.viper.scala01
+
 /**
  * @author c1rew    
  * @create 2020-10-04 17:27
@@ -26,5 +28,5 @@ object Scala_ClassInfo1 extends App {
 
 // 枚举
 class Color extends Enumeration {
-     
+
 }

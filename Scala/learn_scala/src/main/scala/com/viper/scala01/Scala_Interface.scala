@@ -1,3 +1,5 @@
+package com.viper.scala01
+
 /**
  * @author c1rew    
  * @create 2020-10-04 16:41
