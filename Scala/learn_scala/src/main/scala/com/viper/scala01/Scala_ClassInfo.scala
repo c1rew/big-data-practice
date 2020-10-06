@@ -27,6 +27,6 @@ object Scala_ClassInfo1 extends App {
 }
 
 // 枚举
-class Color extends Enumeration {
+object Color extends Enumeration {
 
 }
