@@ -39,6 +39,18 @@ object SparkSQL_Transform {
             println(row.getInt(0)+"\t"+row.getString(1)+"\t"+row.getInt(2))
         })
 
+        // rdd->DataSet
+        val userRdd: RDD[User] = rdd.map {
+            case (id, name, age) => {
+                User(id, name, age)
+            }
+        }
+        val userDs: Dataset[User] = userRdd.toDS()
+        // DataSet->rdd
+        val rdd2: RDD[User] = userDs.rdd
+
+        rdd2.foreach(println)
+
         // 释放资源
         spark.close()
     }
