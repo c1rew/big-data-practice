@@ -1,5 +1,6 @@
 package com.viper.scala01
 
+import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
 /**
@@ -39,5 +40,9 @@ object Scala_Array {
         arrayBuffer.insert(1, 9)
         val buffer: arrayBuffer.type = arrayBuffer += (9)
         println(arrayBuffer == buffer)
+        
+        // 可变  <-> 不可变
+        val buffer1: mutable.Buffer[Int] = ints.toBuffer
+        val array: Array[Int] = arrayBuffer.toArray
     }
 }
