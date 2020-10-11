@@ -34,7 +34,7 @@ object SparkStreaming_WordCount {
 
         // 启动StreamingContext
         streamingContext.start()
-        
+
         // 等待数据采集器结束
         streamingContext.awaitTermination()
 

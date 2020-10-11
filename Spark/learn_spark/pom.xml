@@ -40,6 +40,11 @@
             <artifactId>spark-streaming_2.11</artifactId>
             <version>${spark.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-yarn_2.11</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
         <!-- hadoop依赖-->
         <dependency>
             <groupId>org.apache.hadoop</groupId>
