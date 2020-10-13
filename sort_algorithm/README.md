@@ -1,3 +1,8 @@
+
+以下公式显示不正常的，比如出现 $ 或者 ^ 符号的，可以安装Chrome插件[MathJax Plugin for Github](https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima/related)
+
+---
+
 # Sorting Algorithm
 
 
