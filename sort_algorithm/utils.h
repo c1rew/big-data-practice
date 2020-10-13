@@ -1,12 +1,12 @@
 /**
  * @file utils.h
  * @author c1rew
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2020-07-31
- * 
+ *
  * @copyright Copyright (c) 2020
- * 
+ *
  */
 #ifndef __UTILS_H__
 #define __UTILS_H__
@@ -18,8 +18,8 @@
 
 /**
  * @brief generate random number array, not duplicate number
- * 
- * @param n array size 
+ *
+ * @param n array size
  * @param range_left  left range eg. 1
  * @param range_right  right range eg. 100
  * @return std::vector<int> return vector array
