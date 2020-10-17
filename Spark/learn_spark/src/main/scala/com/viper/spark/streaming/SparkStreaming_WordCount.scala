@@ -24,13 +24,17 @@ object SparkStreaming_WordCount {
         val wordDStream: DStream[String] = socketLineDStream.flatMap(_.split(" "))
 
         // 每个单词组成元组 word 1
-        val mapDStream: DStream[(String, Int)] = wordDStream.map((_, 1))
+        //val mapDStream: DStream[(String, Int)] = wordDStream.map((_, 1))
 
         // 数据聚合
-        val wordSumDStream: DStream[(String, Int)] = mapDStream.reduceByKey(_ + _)
+        //val wordSumDStream: DStream[(String, Int)] = mapDStream.reduceByKey(_ + _)
+
+        // 使用transform进行聚合
+        val wordCount: DStream[(String, Int)] = wordDStream.transform(rdd => rdd.map(word => (word, 1)).reduceByKey(_ + _))
 
         // 打印结果
-        wordSumDStream.print()
+        //wordSumDStream.print()
+        wordCount.print()
 
         // 启动StreamingContext
         streamingContext.start()
