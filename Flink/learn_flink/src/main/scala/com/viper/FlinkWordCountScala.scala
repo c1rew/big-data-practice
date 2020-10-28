@@ -6,7 +6,7 @@ import org.apache.flink.api.scala._
  * @author c1rew    
  * @create 2020-10-25 14:03
  */
-object FlinkWordCount {
+object FlinkWordCountScala {
     def main(args: Array[String]): Unit = {
         val env: ExecutionEnvironment = ExecutionEnvironment.getExecutionEnvironment
 
