@@ -1,8 +1,16 @@
 package com.viper;
 
+import org.apache.flink.api.common.functions.FlatMapFunction;
+import org.apache.flink.api.common.functions.ReduceFunction;
 import org.apache.flink.api.java.ExecutionEnvironment;
+import org.apache.flink.api.java.operators.AggregateOperator;
+import org.apache.flink.api.java.operators.DataSource;
+import org.apache.flink.api.java.operators.FlatMapOperator;
+import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
+import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.util.Collector;
 
 /**
  * @author c1rew
@@ -10,11 +18,23 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
  */
 
 public class FlinkWordCountJava {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+    public static void main(String[] args) throws Exception {
+        ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
 
-        DataStreamSource<String> dataStreamSource = env.readTextFile("input/word.txt");
+        DataSource<String> dataSource = env.readTextFile("input/word.txt");
 
-        dataStreamSource.
+        AggregateOperator<Tuple2<String, Integer>> result = dataSource.flatMap(new FlatMapFunction<String, Tuple2<String, Integer>>() {
+
+            @Override
+            public void flatMap(String s, Collector<Tuple2<String, Integer>> collector) throws Exception {
+                String[] fields = s.split(" ");
+                for (String word : fields) {
+                    collector.collect(new Tuple2<>(word, 1));
+                }
+            }
+        }).groupBy(0).sum(1);
+
+        result.print();
     }
 }
+
