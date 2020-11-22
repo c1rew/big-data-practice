@@ -1,5 +1,7 @@
 import org.junit.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -11,7 +13,35 @@ import java.util.Date;
 public class DataTimeTest {
 
     /**
-     * java.utils.Date
+     * 3. SimpleDataFormat
+     *
+     * 两个操作
+     * 1. 格式化 日期--->字符串
+     * 2. 解析  格式化逆过程  字符串 --->日期
+     *
+     * SimpleDataFormat的实例化
+     */
+    @Test
+    public void test3() throws ParseException {
+        // 实例化,默认构造器
+        SimpleDateFormat sdf = new SimpleDateFormat();
+
+        Date date = new Date();
+
+        String format = sdf.format(date);
+        System.out.println(format);
+
+        // 解析，字符串必须符合默认构造器对应的结构
+        String str = "11/23/20 6:52 AM";
+        Date date1 = sdf.parse(str);
+        System.out.println(date1);
+
+        // 自定义构造
+
+    }
+
+    /**
+     * 2. java.utils.Date
      * ----java.sql.Date
      * <p>
      * 1. 两个构造器的使用
@@ -62,4 +92,6 @@ public class DataTimeTest {
         long time = System.currentTimeMillis();
         System.out.println(time);
     }
+
+
 }
