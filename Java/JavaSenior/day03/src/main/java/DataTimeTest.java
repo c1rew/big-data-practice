@@ -37,7 +37,9 @@ public class DataTimeTest {
         System.out.println(date1);
 
         // 自定义构造
-
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String format1 = sdf1.format(date);
+        System.out.println(format1);
     }
 
     /**
