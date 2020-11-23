@@ -40,6 +40,17 @@ public class DataTimeTest {
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String format1 = sdf1.format(date);
         System.out.println(format1);
+
+        // 解析，字符串必须符合自定义构造中指定的格式
+        Date date2 = sdf1.parse("2020-11-23 07:45:54");
+        System.out.println(date2);
+
+        // 练习：字符串“2020-11-23”转换为java.sql.Date
+        String birth = "2020-11-23";
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+        Date date3 = sdf2.parse(birth);
+        java.sql.Date birthDate = new java.sql.Date(date3.getTime());
+        System.out.println(birthDate);
     }
 
     /**
