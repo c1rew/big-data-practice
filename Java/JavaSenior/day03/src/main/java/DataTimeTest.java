@@ -2,6 +2,7 @@ import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -11,6 +12,22 @@ import java.util.Date;
  * @create 2020-07-29 21:45
  */
 public class DataTimeTest {
+
+
+    /**
+     * 4. Calender 日历类
+     */
+    @Test
+    public void testCalendar() {
+        // 1. 实例化
+        // 方式一  创建子类对象 GregorianCalendar
+        // 方式二  调用静态方法  getInstance
+        Calendar calendar = Calendar.getInstance();
+
+        // 2.常用方法
+
+    }
+
 
     /**
      * 3. SimpleDataFormat
