@@ -17,6 +17,8 @@ public class CompareTest {
      *    当前对象this大于形参对象obj，返回正整数
      *    当前对象this小于形参对象obj，返回负整数
      *    当前对象this等于形参对象obj，返回零
+     *
+     * 4. 对于自定义类，如果需要排序，需要实现Comparable接口，重写compareTo方法
      */
     @Test
     public void test1(){
