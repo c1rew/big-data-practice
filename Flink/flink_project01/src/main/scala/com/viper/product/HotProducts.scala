@@ -2,6 +2,8 @@ package com.viper.product
 
 import com.viper.utils.Utils
 import org.apache.flink.api.common.functions.AggregateFunction
+import org.apache.flink.api.common.state.{ListState, ListStateDescriptor}
+import org.apache.flink.configuration.Configuration
 import org.apache.flink.streaming.api.TimeCharacteristic
 import org.apache.flink.streaming.api.functions.{AssignerWithPeriodicWatermarks, KeyedProcessFunction}
 import org.apache.flink.streaming.api.scala._
@@ -38,7 +40,7 @@ object HotProducts {
 
         env.setParallelism(1)
         env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime)
-
+        
 
         env.readTextFile("") // 读取数据
             .map(Utils.string2UserBehavior(_)) // 解析数据
@@ -46,9 +48,9 @@ object HotProducts {
             .filter(_.behaviorType == "P") //过滤用户行为数据
             .keyBy(_.productId) // 按商品进行分组
             .timeWindow(Time.hours(1), Time.minutes(5))
-            .aggregate(new CountProduct,new WindowResult) // 计算窗口数据
-            .keyBy(_.WindowEnd)  // 按照窗口进行分组
-            .process()
+            .aggregate(new CountProduct, new WindowResult) // 计算窗口数据
+            .keyBy(_.WindowEnd) // 按照窗口进行分组
+            .process(new TopHotProduct(3))
 
 
 
@@ -56,17 +58,49 @@ object HotProducts {
         env.execute("hotProducts")
     }
 
-    class TopHotProduct(topN:Int) extends KeyedProcessFunction[Long,ProductViewCount,String] {
-        override def processElement(i: ProductViewCount, context: KeyedProcessFunction[Long, ProductViewCount, String]#Context, collector: Collector[String]): Unit = ???
+    class TopHotProduct(topN: Int) extends KeyedProcessFunction[Long, ProductViewCount, String] {
+
+        private var productState: ListState[ProductViewCount] = _
+
+        override def open(parameters: Configuration): Unit = {
+            getRuntimeContext.getListState(
+                new ListStateDescriptor[ProductViewCount](
+                    "product-state",
+                    classOf[ProductViewCount]
+                )
+            )
+        }
+
+        override def processElement(value: ProductViewCount,
+                                    context: KeyedProcessFunction[Long, ProductViewCount, String]#Context,
+                                    collector: Collector[String]): Unit = {
+            // 把一个窗口里面所有统计信息存储后，计算TopN
+            productState.add(value)
+            context.timerService().registerEventTimeTimer(value.WindowEnd + 1)
+        }
+
+        /**
+         * 定时器里面实现排序功能
+         *
+         * @param timestamp
+         * @param ctx
+         * @param out
+         */
+        override def onTimer(timestamp: Long,
+                             ctx: KeyedProcessFunction[Long, ProductViewCount, String]#OnTimerContext,
+                             out: Collector[String]): Unit = {
+
+
+        }
     }
 
 
-    class WindowResult extends WindowFunction[Long,ProductViewCount,Long,TimeWindow] {
+    class WindowResult extends WindowFunction[Long, ProductViewCount, Long, TimeWindow] {
         override def apply(key: Long,
                            window: TimeWindow,
                            input: Iterable[Long],
                            out: Collector[ProductViewCount]): Unit = {
-            out.collect(ProductViewCount(key,window.getEnd,input.iterator.next()))
+            out.collect(ProductViewCount(key, window.getEnd, input.iterator.next()))
         }
     }
 
