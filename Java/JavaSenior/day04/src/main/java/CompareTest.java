@@ -1,6 +1,7 @@
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 /**
  * 对象比较，需要实现两个接口中的任何一个
@@ -39,5 +40,21 @@ public class CompareTest {
 
         Arrays.sort(products);
         System.out.println(Arrays.toString(products));
+    }
+
+    @Test
+    public  void test3(){
+        String[] arr = {"AA", "KK", "CC", "GG", "PP"};
+        Arrays.sort(arr, new Comparator<Object>() {
+
+            @Override
+            public int compare(Object o1, Object o2) {
+                if(o1 instanceof String && o2 instanceof String) {
+                    return -((String) o1).compareTo((String) o2);
+                }
+                throw new RuntimeException("类型不一致");
+            }
+        });
+        System.out.println(Arrays.toString(arr));
     }
 }
