@@ -7,6 +7,7 @@ class Window1 implements Runnable {
     // 三个线程使用的同一个w对象，此时不需要声明static也不会有问题
     private int ticket = 100;
 
+    @Override
     public void run() {
         while (true) {
             if (ticket > 0) {
