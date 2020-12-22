@@ -51,7 +51,7 @@ public class StringTest {
      */
     @Test
     public void test2() {
-        // s1 s2 声明在方法去中的字符串常量池中
+        // s1 s2 声明在方法区中的字符串常量池中
         String s1 = "JavaEE";
         String s2 = "JavaEE";
 
