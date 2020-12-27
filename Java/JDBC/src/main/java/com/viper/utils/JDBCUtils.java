@@ -22,9 +22,9 @@ public class JDBCUtils {
      * @return 返回数据库连接
      * @throws Exception
      */
-    public Connection getConnection() throws Exception {
+    public static Connection getConnection() throws Exception {
         // 读取配置文件
-        InputStream inputStream = JDBCUtils.class.getResourceAsStream("jdbc.properties");
+        InputStream inputStream = JDBCUtils.class.getClassLoader().getResourceAsStream("jdbc.properties");
         Properties prop = new Properties();
         prop.load(inputStream);
 
