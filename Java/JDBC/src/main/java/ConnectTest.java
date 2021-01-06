@@ -1,6 +1,5 @@
 import org.junit.Test;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.Driver;
@@ -23,7 +22,11 @@ public class ConnectTest {
      */
     public String url = "jdbc:mysql://192.168.56.152:3306/test";
 
-    // 方式一
+    /**
+     * 方式一
+     *
+     * @throws Exception 异常抛出，实际开发需要try catch
+     */
     @Test
     public void connectTest1() throws Exception {
         // 获取Driver实现类对象
@@ -40,9 +43,14 @@ public class ConnectTest {
         conn.close();
     }
 
-    // 方式二：使用反射，避免直接调用第三方接口
+    /**
+     * 方式二：使用反射，避免直接调用第三方接口
+     *
+     * @throws Exception 异常抛出，实际开发需要try catch
+     */
     @Test
     public void connectTest2() throws Exception {
+        @SuppressWarnings("rawtypes")
         Class clazz = Class.forName("com.mysql.jdbc.Driver");
         Driver driver = (Driver) clazz.newInstance();
 
@@ -58,9 +66,14 @@ public class ConnectTest {
         conn.close();
     }
 
-    // 方式三：使用DriverManager代替Dirver
+    /**
+     * 方式三：使用DriverManager代替 Driver
+     *
+     * @throws Exception 异常抛出，实际开发需要try catch
+     */
     @Test
     public void connectTest3() throws Exception {
+        @SuppressWarnings("rawtypes")
         Class clazz = Class.forName("com.mysql.jdbc.Driver");
         Driver driver = (Driver) clazz.newInstance();
 
@@ -75,7 +88,11 @@ public class ConnectTest {
         conn.close();
     }
 
-    // 方式四：
+    /**
+     * 方式四
+     *
+     * @throws Exception 异常抛出，实际开发需要try catch
+     */
     @Test
     public void connectTest4() throws Exception {
         // 1.提供连接的基本信息：
