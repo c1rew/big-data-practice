@@ -1,11 +1,10 @@
 package com.viper.springboot;
 
+import com.viper.springboot.config.DroidDataSourceConfig;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.context.annotation.Import;
+
 
 /**
  * @author c1rew
@@ -14,9 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @SpringBootApplication 注解等于一下三个注解组合
- *    @Configuration + @EnableAutoConfiguration + @ComponentScan
+ * @Configuration + @EnableAutoConfiguration + @ComponentScan
  */
 @SpringBootApplication
+@Import(DroidDataSourceConfig.class)
 public class Application {
 
     public static void main(String[] args) {
