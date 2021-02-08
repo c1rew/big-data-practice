@@ -4,7 +4,7 @@ package com.viper.juc;
  * @author c1rew
  * @create 2021-02-07 06:52
  */
-public class SynchornizedTest {
+public class SaleTicketTest01 {
     public static void main(String[] args) {
         Ticket1 ticket = new Ticket1();
         new Thread(() -> {
