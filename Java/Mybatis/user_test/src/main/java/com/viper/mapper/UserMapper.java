@@ -1,6 +1,7 @@
 package com.viper.mapper;
 
 import com.viper.domain.User;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * @author c1rew
@@ -13,5 +14,6 @@ public interface UserMapper {
      * @param id
      * @return
      */
+//    @Select("SELECT * FROM user WHERE id = #{id}")
     User findById(Long id);
 }
