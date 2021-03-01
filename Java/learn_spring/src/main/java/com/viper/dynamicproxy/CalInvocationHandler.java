@@ -14,13 +14,13 @@ public class CalInvocationHandler implements InvocationHandler {
 
     public Object getProxy(Object object) {
         this.object = object;
-        return Proxy.newProxyInstance(object.getClass().getClassLoader(), object.getClass().getInterfaces(), this::invoke);
+        return Proxy.newProxyInstance(object.getClass().getClassLoader(), object.getClass().getInterfaces(), this);
     }
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         Object result = method.invoke(object, args);
-        System.out.println(method.getName() + ": " + Arrays.toString(args) +"="+result);
+        System.out.println(method.getName() + ": " + Arrays.toString(args) + "=" + result);
         return result;
     }
 }
