@@ -5,6 +5,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+
 /**
  * @author c1rew
  * @date 2021-03-02 10:42
@@ -12,9 +14,12 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class LoggerAspect {
-    @Before(value = "com.viper.dynamicproxy.impl.CalImpl.*(..)")
+    @Before("execution(public Integer com.viper.dynamicproxy.impl.CalImpl.*(..))")
     public void before(JoinPoint joinPoint) {
         String name = joinPoint.getSignature().getName();
-        System.out.println(name);
+        String args = Arrays.toString(joinPoint.getArgs());
+        System.out.println(name + " " + args);
     }
+
+
 }

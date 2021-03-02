@@ -1,11 +1,13 @@
 package com.viper.dynamicproxy.impl;
 
 import com.viper.dynamicproxy.Cal;
+import org.springframework.stereotype.Component;
 
 /**
  * @author c1rew
  * @create 2021-03-02 06:00
  */
+@Component
 public class CalImpl implements Cal {
     @Override
     public Integer add(Integer num1, Integer num2) {
